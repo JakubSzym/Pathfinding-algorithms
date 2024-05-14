@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
+import time
 
 def visualize_path(maze, path):
     # Utw�rz obiekt do rysowania
@@ -146,8 +147,11 @@ def main():
     start = (0, 0)
     end = (9, 9)
 
+    clock_start = time.time()
     path = astar(maze, start, end)
+    clock_end = time.time()
     print(path)
+    print(f"Czas działania: {clock_end - clock_start}")
     # Wywo�aj funkcj� do wizualizacji
     visualize_path(maze, path)
 

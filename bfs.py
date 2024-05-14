@@ -2,9 +2,10 @@
 
 import collections
 import matplotlib.pyplot as plt
+import time
 
 def bfs(graph, start, end):
-
+    clock_start = time.time()
     visited, queue = set(), collections.deque([start])
     visited.add(start)
     previous = {}
@@ -33,7 +34,10 @@ def bfs(graph, start, end):
         current = previous[current]
     path.insert(0, start)
 
-    print("Ścieżka:",path)
+    clock_end = time.time()
+
+    print(f"Ścieżka: {path}")
+    print(f"Czas działania: {clock_end - clock_start}")
     
     visualize_path(maze, path)
 

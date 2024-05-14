@@ -2,8 +2,10 @@
 
 import heapq
 import matplotlib.pyplot as plt
+import time
 
 def dijkstra(graph, start, end):
+    clock_start = time.time()
     distances = {vertex: float('infinity') for vertex in graph}
     distances[start] = 0 
     queue = [(0, start)]
@@ -32,8 +34,11 @@ def dijkstra(graph, start, end):
         path.insert(0, current)
         current = previous[current]
     path.insert(0, start)
+
+    clock_end = time.time()
     
     print("Minimalna liczba kroków od punktu startowego do punktu końcowego:", distances[end])
+    print(f"Czas działania: {clock_end - clock_start}")
     print("Ścieżka:",path)
     
     visualize_path(maze, path)
@@ -103,6 +108,7 @@ start = (0, 0)
 end = (9, 9)
 
 maze_graph = generate_maze_graph_from_matrix(maze)
+
 
 dijkstra(maze_graph, start, end)
 
