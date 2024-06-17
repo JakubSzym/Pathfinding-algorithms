@@ -3,8 +3,9 @@
 import heapq
 import matplotlib.pyplot as plt
 import time
+from maze import generate_maze
 
-def dijkstra(graph, start, end):
+def dijkstra(maze, graph, start, end):
     clock_start = time.time()
     distances = {vertex: float('infinity') for vertex in graph}
     distances[start] = 0 
@@ -37,9 +38,8 @@ def dijkstra(graph, start, end):
 
     clock_end = time.time()
     
-    print("Minimalna liczba kroków od punktu startowego do punktu końcowego:", distances[end])
+    print(f"Długość ścieżki: {len(path)}")
     print(f"Czas działania: {clock_end - clock_start}")
-    print("Ścieżka:",path)
     
     visualize_path(maze, path)
 
@@ -93,24 +93,37 @@ def visualize_path(maze, path):
     plt.show()
 
 
-maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+# przykład małego labiryntu 10x10
+# maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+#             [1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-start = (0, 0)
-end = (9, 9)
+# przykładowe uruchomienie
 
-maze_graph = generate_maze_graph_from_matrix(maze)
+def run():
+    
+    w = 100
+    h = 100
 
+    # +1 dla obramowania
+    maze = generate_maze(w+1, h+1)
 
-dijkstra(maze_graph, start, end)
+    # ścieżka od lewego górnego do prawego dolnego rogu
+    start = (1, 1)
+    end = (w-1, h-1)
+
+    maze_graph = generate_maze_graph_from_matrix(maze)
+
+    dijkstra(maze, maze_graph, start, end)
+
+# run()
 
 # Przykład trudny dla algorytmu Dijkstry
 # maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],

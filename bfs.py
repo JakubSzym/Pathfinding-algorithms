@@ -3,24 +3,20 @@
 import collections
 import matplotlib.pyplot as plt
 import time
+from maze import generate_maze
 
-def bfs(graph, start, end):
+def bfs(maze, graph, start, end):
     clock_start = time.time()
     visited, queue = set(), collections.deque([start])
     visited.add(start)
     previous = {}
 
     while queue:
-
-        # Dequeue a vertex from queue
         vertex = queue.popleft()
-        print(str(vertex) + " ", end="")
 
         if vertex == end:
             break
 
-        # If not visited, mark it as visited, and
-        # enqueue it
         for neighbour in graph[vertex]:
             if neighbour not in visited:
                 visited.add(neighbour)
@@ -36,8 +32,8 @@ def bfs(graph, start, end):
 
     clock_end = time.time()
 
-    print(f"Ścieżka: {path}")
     print(f"Czas działania: {clock_end - clock_start}")
+    print(f"Długość ścieżki: {len(path)}")
     
     visualize_path(maze, path)
 
@@ -87,26 +83,31 @@ def visualize_path(maze, path):
     ax.set_xticks(range(len(maze[0])))
     ax.set_yticks(range(-len(maze), 0))
 
-    # Pokaż rysunek
     plt.grid(True)
     plt.show()
 
-maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+# maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+#             [1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+#             [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-start = (0, 0)
-end = (9, 9)
-maze_graph = generate_maze_graph_from_matrix(maze)
+# w = 100
+# h = 100
 
-bfs(maze_graph, start, end)
+# maze = generate_maze(w+1, h+1)
+
+
+# start = (1, 1)
+# end = (w-1, h-1)
+# maze_graph = generate_maze_graph_from_matrix(maze)
+
+# bfs(maze_graph, start, end)
 
 
 
